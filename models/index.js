@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
-const db = new Sequelize("postgres://localhost:5432/wikistack");
+const db = new Sequelize("postgres://localhost:5432/wikistack", {logging : false});
+
+
 
 const Page = db.define("page", {
   title: {
@@ -8,9 +10,11 @@ const Page = db.define("page", {
   },
   slug: {
     type: Sequelize.STRING,
+    allowNull: false,
   },
   content: {
     type: Sequelize.TEXT,
+    allowNull: false,
   },
 
   status: {
@@ -25,7 +29,9 @@ const User = db.define("user", {
   },
   email: {
     type: Sequelize.STRING,
+      validate: {
     isEmail: true,
+      },
     allowNull: false,
   },
 });
